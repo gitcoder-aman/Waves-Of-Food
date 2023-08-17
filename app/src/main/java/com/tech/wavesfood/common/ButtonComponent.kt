@@ -20,7 +20,7 @@ fun ButtonComponent(modifier: Modifier = Modifier,
                     text: String,
                     backgroundColor: Color = Color.White,
                     foregroundColor: Color = Color.Black,
-                    elevation: ButtonElevation = ButtonDefaults.buttonElevation(0.dp),
+                    elevation: ButtonElevation = ButtonDefaults.buttonElevation(8.dp),
                     color: ButtonColors = ButtonDefaults.buttonColors(
                          containerColor = backgroundColor,
                          contentColor = foregroundColor

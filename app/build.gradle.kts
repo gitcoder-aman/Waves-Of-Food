@@ -77,7 +77,7 @@ dependencies {
     implementation("androidx.compose.runtime:runtime-livedata:1.5.0")
 
     //for image picker coil
-    implementation("io.coil-kt:coil-compose:1.3.2")
+    implementation("io.coil-kt:coil-compose:2.2.2")
 
     //firebase
 
@@ -109,6 +109,11 @@ dependencies {
 
     //livedata
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.6.1")
+
+    implementation("com.google.accompanist:accompanist-pager:0.20.2")
+    implementation("com.google.accompanist:accompanist-pager-indicators:0.20.2")
+
+    implementation("androidx.compose.ui:ui-util:1.5.0")
 }
 kapt {
     correctErrorTypes

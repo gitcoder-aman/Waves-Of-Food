@@ -20,6 +20,8 @@ import com.google.android.gms.auth.api.identity.Identity
 import com.tech.wavesfood.firebase.firebaseAuth.googleSignIn.GoogleAuthUiClient
 import com.tech.wavesfood.firebase.firebaseAuth.googleSignIn.UserData
 import com.tech.wavesfood.firebase.firebaseAuth.ui.AuthViewModel
+import com.tech.wavesfood.navigation.bottomBarNavigation.BottomNavigation
+import com.tech.wavesfood.screens.FoodDetailScreen
 import com.tech.wavesfood.screens.HomeScreen
 import com.tech.wavesfood.screens.LoginScreen
 import com.tech.wavesfood.screens.SignupScreen
@@ -58,7 +60,7 @@ fun WavesFoodNavigation(context : Context) {
             )
             LaunchedEffect(key1 = state.isSignInSuccessful) {
                 if (state.isSignInSuccessful) {  //get all the the of google signIn
-                    navHostController.navigate(home)
+                    navHostController.navigate(bottomNav)
 
                     val user: UserData? =
                         googleAuthUiClient.getSignedInUser()   //all data get from signedInUser
@@ -87,8 +89,8 @@ fun WavesFoodNavigation(context : Context) {
         composable(signup){
             SignupScreen(navHostController = navHostController)
         }
-        composable(home){
-            HomeScreen(navHostController = navHostController)
+        composable(bottomNav){
+            BottomNavigation()
         }
     }
 }
@@ -96,7 +98,7 @@ fun WavesFoodNavigation(context : Context) {
 const val splash = "start_screen"
 const val login = "login_screen"
 const val signup = "signup_screen"
-const val home = "home_screen"
+const val bottomNav = "bottomNav_screen"
 const val add_menu = "add_menu_screen"
 const val all_menu_show = "all_menu_show_screen"
 const val out_for_delivery = "out_for_delivery_screen"

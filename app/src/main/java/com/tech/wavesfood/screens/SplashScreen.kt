@@ -22,6 +22,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import com.google.android.gms.auth.api.identity.Identity
 import com.tech.wavesfood.firebase.firebaseAuth.googleSignIn.GoogleAuthUiClient
@@ -29,7 +30,7 @@ import com.tech.wavesfood.R
 import com.tech.wavesfood.common.TextDesignByAman
 import com.tech.wavesfood.common.lato_bold
 import com.tech.wavesfood.common.yeon_sung_regular
-import com.tech.wavesfood.navigation.home
+import com.tech.wavesfood.navigation.bottomNav
 import com.tech.wavesfood.navigation.login
 import com.tech.wavesfood.ui.theme.GreenColor
 import kotlinx.coroutines.delay
@@ -46,7 +47,10 @@ fun SplashScreen(context : Context,navHostController : NavHostController) {
     LaunchedEffect(key1 = Unit, block = {  //navigate to home screen after 2 sec
         delay(1000)
         if (googleAuthUiClient.getSignedInUser() != null) {
-            navHostController.navigate(home)
+            navHostController.navigate(bottomNav){
+                launchSingleTop = true
+                navHostController.popBackStack()
+            }
         }else{
             navHostController.navigate(login)
         }

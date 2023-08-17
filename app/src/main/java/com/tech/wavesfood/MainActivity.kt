@@ -11,6 +11,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.tech.wavesfood.navigation.WavesFoodNavigation
+import com.tech.wavesfood.navigation.bottomBarNavigation.BottomNavigation
 import com.tech.wavesfood.ui.theme.WavesFoodTheme
 import dagger.hilt.android.AndroidEntryPoint
 

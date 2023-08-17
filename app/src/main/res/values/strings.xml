@@ -20,6 +20,16 @@
     <string name="choose_your_location">Choose Your Location</string>
     <string name="web_client_id">1054778742437-1mh81e46oem67lhv0jgsnh0rgqjrhit9.apps.googleusercontent.com</string>
     <string name="phone">Phone</string>
+    <string name="explore_your_favorite_food">Explore Your Favorite Food</string>
+    <string name="view_menu">View Menu</string>
+    <string name="popular">Popular</string>
+    <string name="add_to_cart">Add to Cart</string>
+    <string name="what_do_you_want_to_order">What do you want to order?</string>
+    <string name="menu">Menu</string>
+    <string name="food_detail">Food Details</string>
+    <string name="short_description">Short Description</string>
+    <string name="ingredients">Ingredients</string>
+    <string name="cart">Cart</string>
 
 
 </resources>

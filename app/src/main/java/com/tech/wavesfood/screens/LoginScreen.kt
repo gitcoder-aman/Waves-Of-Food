@@ -60,6 +60,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.tech.wavesfood.firebase.firebaseAuth.AuthUserModel
@@ -73,7 +74,7 @@ import com.tech.wavesfood.common.TextDesignByAman
 import com.tech.wavesfood.common.lato_bold
 import com.tech.wavesfood.common.lato_regular
 import com.tech.wavesfood.common.yeon_sung_regular
-import com.tech.wavesfood.navigation.home
+import com.tech.wavesfood.navigation.bottomNav
 import com.tech.wavesfood.navigation.signup
 import com.tech.wavesfood.ui.theme.GreenColor
 import com.tech.wavesfood.ui.theme.WavesFoodTheme
@@ -192,7 +193,10 @@ fun LoginScreen(
                                 isDialog = when (it) {
                                     is ResultState.Success -> {
                                         context.showMsg(it.data)
-                                        navHostController.navigate(home)
+                                        navHostController.navigate(bottomNav){
+                                            launchSingleTop = true
+                                            navHostController.popBackStack()
+                                        }
                                         false
                                     }
 
