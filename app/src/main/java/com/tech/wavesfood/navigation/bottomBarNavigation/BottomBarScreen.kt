@@ -26,10 +26,10 @@ sealed class BottomBarScreen(
         icon = R.drawable.search,
     )
     //for history
-    object History : BottomBarScreen(
-        route = "history",
-        title = "History",
-        icon = R.drawable.history,
+    object Delivery : BottomBarScreen(
+        route = "delivery",
+        title = "Delivery",
+        icon = R.drawable.truck,
     )
     //for profile
     object Profile : BottomBarScreen(

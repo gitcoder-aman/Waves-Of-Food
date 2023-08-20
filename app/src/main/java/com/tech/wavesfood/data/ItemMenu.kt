@@ -8,7 +8,7 @@ data class ItemMenu(
     val itemName : String,
     val itemPrice : String,
     val shortDesc : String,
-    val ingredients : String
+    val ingredients : String,
 )
 val itemMenuList = listOf(
     ItemMenu(1, R.drawable.menu1,"Herbal Pancake fadshfklhasdl fjah","$10","short desc","ingredients"),

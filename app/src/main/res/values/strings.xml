@@ -30,6 +30,14 @@
     <string name="short_description">Short Description</string>
     <string name="ingredients">Ingredients</string>
     <string name="cart">Cart</string>
+    <string name="proceed">Proceed</string>
+    <string name="your_order">Your Order</string>
+    <string name="lorem_address">Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual</string>
+    <string name="lorem_name">lorem ipsum</string>
+    <string name="address">Address</string>
+    <string name="payment_method">Payment Method</string>
+    <string name="total_amount">Total Amount</string>
+    <string name="place_my_order">Place My Order</string>
 
 
 </resources>

@@ -1,6 +1,5 @@
 package com.tech.wavesfood.navigation.bottomBarNavigation
 
-import android.util.Log
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -17,7 +16,6 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -26,12 +24,8 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.navigation.ActivityNavigator
-import androidx.navigation.NavDestination
-import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
-import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.tech.wavesfood.common.TextComponent
 import com.tech.wavesfood.common.lato_regular
@@ -57,7 +51,7 @@ fun BottomBar(navHostController: NavHostController) {
         BottomBarScreen.Home,
         BottomBarScreen.Cart,
         BottomBarScreen.Search,
-        BottomBarScreen.History,
+        BottomBarScreen.Delivery,
         BottomBarScreen.Profile,
     )
 //    val navStackBackEntry by navHostController.currentBackStackEntryAsState()
@@ -100,7 +94,7 @@ fun RowScope.AddItem(
         }) {
         Column(
             modifier = Modifier
-                .padding(start = 20.dp, end = 20.dp, top = 8.dp, bottom = 8.dp),
+                .padding(start = 20.dp, end = 20.dp, top = 10.dp),
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {

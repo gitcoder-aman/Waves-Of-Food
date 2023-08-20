@@ -11,13 +11,12 @@ class SharedDataWithOtherScreens : ViewModel(){
     private val _itemImage : MutableState<Int> = mutableIntStateOf(R.drawable.no_image)
     private val _shortDesc : MutableState<String> = mutableStateOf("")
     private val _ingredients : MutableState<String> = mutableStateOf("")
-
-    private val _cartList : ArrayList<Int> = ArrayList()
+    private val _cartList = mutableSetOf<Int>()
 
     val itemImage: State<Int> = _itemImage
     val shortDesc: State<String> = _shortDesc
     val ingredients: State<String> = _ingredients
-    val cartList : ArrayList<Int> = _cartList
+    val cartList : MutableSet<Int> = _cartList
 
     fun setData(itemImage:Int,shortDesc:String,ingredients:String){
         _itemImage.value = itemImage
@@ -26,6 +25,9 @@ class SharedDataWithOtherScreens : ViewModel(){
     }
     fun addToCartList(itemId : Int){
         _cartList.add(itemId)
+    }
+    fun removeItem(index : Int) {
+        _cartList.remove(index)
     }
 
 }

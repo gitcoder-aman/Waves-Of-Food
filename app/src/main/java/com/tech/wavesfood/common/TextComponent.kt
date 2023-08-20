@@ -9,7 +9,6 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.TextUnit
-import androidx.compose.ui.unit.dp
 
 @Composable
 fun TextComponent(
@@ -19,7 +18,8 @@ fun TextComponent(
     fontWeight: FontWeight,
     fontFamily: FontFamily,
     color: Color,
-    maxLine : Int = 1
+    maxLine: Int = 1,
+    textAlign: TextAlign? = null
 
 ) {
     Text(
@@ -28,7 +28,8 @@ fun TextComponent(
             fontWeight = fontWeight,
             fontFamily = fontFamily,
             color = color,
-        ),
+            textAlign = textAlign
+        ),textAlign = textAlign,
         maxLines = maxLine
     )
 }
