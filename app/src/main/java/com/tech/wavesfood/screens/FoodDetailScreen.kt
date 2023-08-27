@@ -1,5 +1,6 @@
 package com.tech.wavesfood.screens
 
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -16,6 +17,10 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Icon
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
@@ -42,6 +47,9 @@ import com.tech.wavesfood.ui.theme.darkWhiteColor
 @Composable
 fun FoodDetailScreen(navHostController: NavHostController,viewModel:SharedDataWithOtherScreens) {
 
+    var text by remember {
+        mutableStateOf("Add to Cart")
+    }
     Box(
         modifier = Modifier
             .padding(bottom = 50.dp)
@@ -76,12 +84,17 @@ fun FoodDetailScreen(navHostController: NavHostController,viewModel:SharedDataWi
 
             Spacer(modifier = Modifier.height(5.dp))
             ButtonComponent(
-                text = stringResource(id = R.string.add_to_cart),
+                text = text,
                 backgroundColor = GreenColor,
                 foregroundColor = Color.White
-            ) {
-                navHostController.navigate(BottomBarScreen.Cart.route)
-            }
+            , onClick = {
+                    if(text == "Add to Cart"){
+                        viewModel.addToCartList(viewModel.itemId.value)
+                        text = "Go to Cart"
+                    }else{
+                        navHostController.navigate(BottomBarScreen.Cart.route)
+                    }
+            })
         }
     }
 }

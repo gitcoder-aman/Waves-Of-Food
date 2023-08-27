@@ -1,5 +1,6 @@
 package com.tech.wavesfood.screens
 
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -27,6 +28,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -60,6 +62,12 @@ import com.tech.wavesfood.ui.theme.darkWhiteColor
 @Composable
 fun CartScreen(navHostController: NavHostController, viewModel: SharedDataWithOtherScreens) {
 
+    val totalAmount by rememberSaveable {
+        mutableStateOf("")
+    }
+    var count by rememberSaveable {
+        mutableIntStateOf(1)
+    }
     Box(
         modifier = Modifier
             .padding(bottom = 50.dp)
@@ -79,16 +87,22 @@ fun CartScreen(navHostController: NavHostController, viewModel: SharedDataWithOt
                 navHostController.navigateUp()
             }
             Spacer(modifier = Modifier.height(10.dp))
-            LazyColumn {
-                items(viewModel.cartList.toList(), key = { it }) { itemIndex ->
+            LazyColumn(modifier = Modifier
+                .width(350.dp)
+                .height(450.dp)) {
+                items(viewModel.cartList.toList(), key = {it}) { itemIndex ->
+                    Log.d("@@@@c", "CartScreen: ${itemIndex}")
                     CartEachRow(
+                        count = count,
                         itemIndex = itemIndex,
                         itemMenu = itemMenuList[itemIndex],
                         itemOnClick = {
                             viewModel.setData(
+                                itemMenuList[itemIndex].itemId,
                                 itemMenuList[itemIndex].itemImage,
                                 itemMenuList[itemIndex].shortDesc,
-                                itemMenuList[itemIndex].ingredients
+                                itemMenuList[itemIndex].ingredients,
+                                itemMenuList[itemIndex].itemPrice
                             )
                             navHostController.navigate(foodDetail)
                         },
@@ -96,32 +110,34 @@ fun CartScreen(navHostController: NavHostController, viewModel: SharedDataWithOt
                             viewModel.removeItem(index = itemIndex)
                             cartItemRemove(itemIndex)
                             ///here an error of index problem when delete item
-                        })
+                        }, increaseItem = {
+                            count++
+                            Log.d("@@@@cart", "CartScreen: ${itemMenuList[itemIndex].itemPrice}")
+                            Log.d("@@@@cart", "CartScreen: ${itemMenuList[itemIndex].itemPrice * count}")
+                        }) {
+                        if (count > 1)
+                            count--
+                        Log.d("@@@@cart", "CartScreen: ${itemMenuList[itemIndex].itemPrice * count}")
+                    }
                 }
             }
         }
-        ButtonComponent(
-            text = stringResource(R.string.proceed),
-            modifier = Modifier.fillMaxWidth(),
-            backgroundColor = Color.White,
-            foregroundColor = GreenColor,
-            elevation = ButtonDefaults.buttonElevation(
-                defaultElevation = 8.dp,
-                pressedElevation = 4.dp
-            )
-        ) {
+        CartPriceCard(viewModel){
             navHostController.navigate(BottomBarScreen.Delivery.route)
         }
+
     }
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun CartEachRow(itemIndex: Int, itemMenu: ItemMenu, itemOnClick: () -> Unit, onDelete: () -> Unit) {
+fun CartEachRow(
+    count : Int,
+    itemIndex: Int, itemMenu: ItemMenu, itemOnClick: () -> Unit, onDelete: () -> Unit,
+    increaseItem: () -> Unit,
+    decreaseItem: () -> Unit
+) {
 
-    var count by rememberSaveable {
-        mutableIntStateOf(1)
-    }
     Card(
         onClick = { itemOnClick() },
         modifier = Modifier
@@ -164,7 +180,7 @@ fun CartEachRow(itemIndex: Int, itemMenu: ItemMenu, itemOnClick: () -> Unit, onD
                     ), maxLines = 1
                 )
                 Text(
-                    text = itemMenu.itemPrice, style = TextStyle(
+                    text = itemMenu.itemPrice.toString(), style = TextStyle(
                         fontSize = 22.sp,
                         fontWeight = FontWeight.W400,
                         fontFamily = yeon_sung_regular,
@@ -191,8 +207,7 @@ fun CartEachRow(itemIndex: Int, itemMenu: ItemMenu, itemOnClick: () -> Unit, onD
                         modifier = Modifier
                             .weight(0.33f)
                             .clickable {
-                                if (count > 1)
-                                    count--
+                                decreaseItem()
                             }, tint = Color.Unspecified
                     )
                     TextComponent(
@@ -209,7 +224,7 @@ fun CartEachRow(itemIndex: Int, itemMenu: ItemMenu, itemOnClick: () -> Unit, onD
                         modifier = Modifier
                             .weight(0.33f)
                             .clickable {
-                                count++
+                                increaseItem()
                             }, tint = Color.Unspecified
                     )
                     val cartMenu = CartMenu(itemCount = count, itemIndex = itemIndex)
@@ -227,5 +242,71 @@ fun CartEachRow(itemIndex: Int, itemMenu: ItemMenu, itemOnClick: () -> Unit, onD
                 }
             }
         }
+    }
+}
+
+@Composable
+fun CartPriceCard(viewModel:SharedDataWithOtherScreens,buttonOnClick:()->Unit) {
+    Card(
+        modifier = Modifier
+            .padding(top = 5.dp, start = 5.dp, end = 5.dp, bottom = 5.dp)
+            .fillMaxWidth()
+            .height(200.dp)
+            .background(Color.White, shape = RoundedCornerShape(8.dp)),
+        elevation = CardDefaults.cardElevation(4.dp)
+    ) {
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(20.dp),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.SpaceBetween
+        ) {
+            TextRow(priceName = "Sub-Total", price = "")
+            TextRow(priceName = "Delivery Charge", price = "10")
+            TextRow(priceName = "Discount", price = "20")
+
+            Spacer(modifier = Modifier.height(20.dp))
+
+            TextRow(priceName = "Total", price = "")
+
+            Spacer(modifier = Modifier.height(20.dp))
+            ButtonComponent(
+                text = stringResource(R.string.proceed),
+                modifier = Modifier.fillMaxWidth(),
+                backgroundColor = Color.White,
+                foregroundColor = GreenColor,
+                elevation = ButtonDefaults.buttonElevation(
+                    defaultElevation = 8.dp,
+                    pressedElevation = 4.dp
+                )
+            ) {
+                buttonOnClick()
+            }
+        }
+    }
+}
+
+@Composable
+fun TextRow(priceName: String, price: String) {
+    Row(
+        modifier = Modifier.fillMaxWidth(),
+        horizontalArrangement = Arrangement.SpaceBetween,
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        TextComponent(
+            text = priceName,
+            fontSize = 18.sp,
+            fontWeight = FontWeight.W200,
+            fontFamily = yeon_sung_regular,
+            color = Color.Black
+        )
+        TextComponent(
+            text = "$price $",
+            fontSize = 18.sp,
+            fontWeight = FontWeight.W200,
+            fontFamily = yeon_sung_regular,
+            color = Color.Black
+        )
     }
 }

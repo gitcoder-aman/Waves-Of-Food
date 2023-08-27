@@ -1,5 +1,6 @@
 package com.tech.wavesfood.screens
 
+import android.util.Log
 import androidx.annotation.DrawableRes
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -42,6 +43,7 @@ import com.tech.wavesfood.common.TextComponent
 import com.tech.wavesfood.common.lato_bold
 import com.tech.wavesfood.common.lato_regular
 import com.tech.wavesfood.common.yeon_sung_regular
+import com.tech.wavesfood.data.cartList
 import com.tech.wavesfood.navigation.bottomBarNavigation.BottomBarScreen
 import com.tech.wavesfood.ui.theme.GreenColor
 import com.tech.wavesfood.ui.theme.darkWhiteColor
@@ -76,18 +78,18 @@ fun DeliveryScreen(navHostController: NavHostController) {
             HeadingWithIcon(headingName = stringResource(id = R.string.your_order), onBackClick = {
                 navHostController.navigateUp()
             })
-//            Log.d(
-//                "@@@@",
-//                "CartEachRow: ${"itemIndex " + cartList[0].itemIndex} ${"itemCount " + cartList[0].itemCount} ${"Size " + cartList.size}"
-//            )
-//            Log.d(
-//                "@@@@",
-//                "CartEachRow: ${"itemIndex " + cartList[1].itemIndex} ${"itemCount " + cartList[1].itemCount} ${"Size " + cartList.size}"
-//            )
-//            Log.d(
-//                "@@@@",
-//                "CartEachRow: ${"itemIndex " + cartList[2].itemIndex} ${"itemCount " + cartList[2].itemCount} ${"Size " + cartList.size}"
-//            )
+            Log.d(
+                "@@@@",
+                "CartEachRow: ${"itemIndex " + cartList[0].itemIndex} ${"itemCount " + cartList[0].itemCount} ${"Size " + cartList.size}"
+            )
+            Log.d(
+                "@@@@",
+                "CartEachRow: ${"itemIndex " + cartList[1].itemIndex} ${"itemCount " + cartList[1].itemCount} ${"Size " + cartList.size}"
+            )
+            Log.d(
+                "@@@@",
+                "CartEachRow: ${"itemIndex " + cartList[2].itemIndex} ${"itemCount " + cartList[2].itemCount} ${"Size " + cartList.size}"
+            )
             Spacer(modifier = Modifier.height(10.dp))
             TextFieldWithLeadingText(leadingText = stringResource(id = R.string.name),
                 placeholderText = stringResource(R.string.lorem_name),

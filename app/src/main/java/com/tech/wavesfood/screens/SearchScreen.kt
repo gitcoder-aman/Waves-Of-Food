@@ -37,13 +37,14 @@ import com.tech.wavesfood.common.TextComponent
 import com.tech.wavesfood.common.lato_regular
 import com.tech.wavesfood.common.yeon_sung_regular
 import com.tech.wavesfood.data.itemMenuList
+import com.tech.wavesfood.navigation.bottomBarNavigation.BottomBarScreen
 import com.tech.wavesfood.navigation.bottomBarNavigation.foodDetail
 import com.tech.wavesfood.sharedViewModel.SharedDataWithOtherScreens
 import com.tech.wavesfood.ui.theme.GreenColor
 import com.tech.wavesfood.ui.theme.darkWhiteColor
 
 @Composable
-fun SearchScreen(navHostController: NavHostController,viewModel : SharedDataWithOtherScreens) {
+fun SearchScreen(navHostController: NavHostController, viewModel: SharedDataWithOtherScreens) {
 
     var searchText by remember {
         mutableStateOf("")
@@ -79,10 +80,13 @@ fun SearchScreen(navHostController: NavHostController,viewModel : SharedDataWith
             LazyColumn {
                 items(itemMenuList, key = { it.itemId }) {
                     PopularEachRow(itemMenu = it, itemOnClick = {
-                        viewModel.setData(it.itemImage, it.shortDesc, it.ingredients)
+                        viewModel.setData(it.itemId,it.itemImage, it.shortDesc, it.ingredients,it.itemPrice)
                         navHostController.navigate(foodDetail)
-                    }, addToCartOnClick = {
-                        viewModel.addToCartList(it.itemId)
+                    }, addToCartOnClick = { string ->
+                        if (string == "add")
+                            viewModel.addToCartList(it.itemId)
+                        else
+                            navHostController.navigate(BottomBarScreen.Cart.route)
                     })
                 }
             }
